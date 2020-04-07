@@ -1,20 +1,28 @@
 function render(node) {
-	console.log('render', node)
-	if (node === false) {
-		return '';
-	}
-
-	return '<' + node.name + '>' + (node.children ? render(node.children) : '') + '</' + node.name + '>'
+    if (node === false) {
+        return '';
+    } else if (node instanceof Node) {
+        return '<' + node.name + '>' + render(node.children) + '</' + node.name + '>'
+    } else if (node instanceof Array) {
+        output = '';
+        for (child in node) {
+            output += render(node[child]);
+        }
+        return output;
+    } else {
+        return node;
+    }
 }
 
 class Node {
-  constructor(name, attrs) {
-  	this.name = name;
-  	this.children = false;
+  constructor(name, attrs, children) {
+    this.name = name;
+    this.attrs = attrs;
+    this.children = attrs;
   }
 
   toString() {
-  	return render(this);
+    return render(this);
   }
 
   [Symbol.for('/')] (other) {
@@ -32,4 +40,8 @@ let handler = {
 let L = new Proxy({}, handler);
 
 
-console.log(render(L.h1 / L.h2))
+console.log(render(L.h1 / [
+        L.h2 / 'hello',
+        L.h2 / 'world'
+    ]
+))
