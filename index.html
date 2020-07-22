@@ -1,0 +1,80 @@
+<div id="result"/>
+<script type="text/javascript">
+var L = {};
+
+L.el = function (name, content, attrs) {
+	var node = document.createElement(name)
+
+	// TODO: support nested arrays
+	if (content instanceof Array) {
+		content.forEach(node2 => {
+			node.appendChild(node2);
+		})
+	} else if (content instanceof HTMLElement) {
+		node.appendChild(content)
+	} else if (content) {
+		var content_node = document.createTextNode(content)
+		node.appendChild(content_node)
+	}
+
+	if (attrs) {
+		for (var key in attrs) {
+			node.setAttribute(key, attrs[key])
+		}
+	}
+
+	return node
+}
+
+var html_elements = ['strong', 'br', 'ul', 'li', 'a'];
+
+html_elements.forEach(el => {
+	L[el] = function (content, attrs) {
+		return L.el(el, content, attrs)
+	}
+})
+
+L.render = function (node) {
+	if (node instanceof HTMLElement) {
+		return node.outerHTML
+	}
+	if (node instanceof Array) {
+		return node.map(node => L.render(node)).join('')
+	}
+	return node.toString()
+}
+
+
+var mutual = [{
+	id: 'a',
+	label: 'label'
+}]
+
+result.innerHTML = L.render([
+  L.strong("Mutal"),
+  L.br(),
+  L.ul(mutual.map(node => 
+    L.li(L.a(node.label, {href: '#'+node.id}))
+  ))
+])
+
+result.appendChild(document.createElement('hr'))
+
+
+var title = document.createElement('strong');
+var title_text = document.createTextNode('Mutual');
+title.appendChild(title_text)
+result.appendChild(title)
+result.appendChild(document.createElement('br'))
+var list = document.createElement('ul');
+mutual.forEach(node => {
+	var link_text = document.createTextNode(node.label);
+	var link = document.createElement('a')
+	link.setAttribute('href', '#' + node.id)
+	link.appendChild(link_text)
+	var list_item = document.createElement('li')
+	list_item.appendChild(link)
+	list.appendChild(list_item)
+})
+result.appendChild(list)
+</script>
