@@ -1,0 +1,19 @@
+{
+  "name": "lys-js",
+  "version": "1.0.0",
+  "description": "A simple way to render HTML in JavaScript ",
+  "main": "lys.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdamien/lys.js.git"
+  },
+  "author": "Damien Marié",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mdamien/lys.js/issues"
+  },
+  "homepage": "https://github.com/mdamien/lys.js#readme"
+}
