@@ -1,5 +1,5 @@
 ## lys.js
-** A simple way to render HTML in JavaScript**
+**A simple way to render HTML in JavaScript**
 
 ```javascript
 html = L.render([
