@@ -13,6 +13,11 @@ it('should render attributes', () => {
     '<input id="hello" value="world">'
   )
 
+  chai.assert.equal(L.render(
+  	L.input({what: null})),
+    '<input>'
+  )
+
   /* not supported yet
   chai.assert.equal(L.render(
   	L.input('hello', {what: null})),
