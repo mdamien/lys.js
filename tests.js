@@ -36,4 +36,11 @@ it('should support attributes first', () => {
     '<h1 class="hello">world</h1>')
 })
 
+it('should support rendering unescaped content', () => {
+  chai.assert.equal(L.render(L.p('<h1>world</h1>')),
+    '<p>&lt;h1&gt;world&lt;/h1&gt;</p>')
+  chai.assert.equal(L.render(L.p(L.raw('<h1>world</h1>'))),
+    '<p><h1>world</h1></p>')
+})
+
 // TODO: continue by taking inspiration from lys python version tests

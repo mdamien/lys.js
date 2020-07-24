@@ -24,6 +24,12 @@ var flattenArray = function (array) {
   return array;
 }
 
+class RawHTML {
+  constructor(html) {
+    this.html = html
+  }
+}
+
 L.el = function (name, content, attrs) {
   var node = document.createElement(name)
 
@@ -36,6 +42,8 @@ L.el = function (name, content, attrs) {
     })
   } else if (content instanceof HTMLElement) {
     node.appendChild(content)
+  } else if (content instanceof RawHTML) {
+    node.innerHTML += content.html
   } else if (content) {
     var content_node = document.createTextNode(content)
     node.appendChild(content_node)
@@ -66,6 +74,10 @@ html_elements.forEach(el => {
     return L.el(el, content, attrs)
   }
 })
+
+L.raw = function(html) {
+  return new RawHTML(html)
+}
 
 L.render = function (node) {
   return L.span(node).innerHTML
