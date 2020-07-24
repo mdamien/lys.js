@@ -1,5 +1,9 @@
 L = {};
 
+var isObject = function (a) {
+    return (!!a) && (a.constructor === Object);
+};
+
 var flattenArray = function (array) {
   var is_flat = false
   while (!is_flat) {
@@ -54,6 +58,9 @@ var html_elements = "a,abbr,address,area,article,aside,audio,b,base,bdi,bdo,bloc
 html_elements =  html_elements.split(',')
 html_elements.forEach(el => {
   L[el] = function (content, attrs) {
+    if (isObject(content)) {
+      return L.el(el, attrs, content)
+    }
     return L.el(el, content, attrs)
   }
 })
