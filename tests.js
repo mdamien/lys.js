@@ -30,3 +30,5 @@ it('should support attributes first', () => {
   chai.assert.equal(L.render(L.h1({class:'hello'}, 'world')),
     '<h1 class="hello">world</h1>')
 })
+
+// TODO: continue by taking inspiration from lys python version tests
