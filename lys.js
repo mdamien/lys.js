@@ -39,7 +39,11 @@ L.el = function (name, content, attrs) {
 
   if (attrs) {
     for (var key in attrs) {
-      node.setAttribute(key, attrs[key])
+      var value = attrs[key];
+      if (key == 'class_') {
+        key = 'class';
+      }
+      node.setAttribute(key, value)
     }
   }
 
