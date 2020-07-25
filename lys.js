@@ -51,12 +51,25 @@ L.el = function (name, content, attrs) {
 
   if (attrs) {
     for (var key in attrs) {
-      var value = attrs[key];
+      var value = attrs[key]
       if (key == 'class_') {
-        key = 'class';
+        key = 'class'
       }
       if (value !== null) {
-        node.setAttribute(key, value)
+        if (key === "style" && isObject(value)) {
+          var style = ""
+          
+          for (var styleKey in value) {
+            var styleValue = value[styleKey]
+            if (styleValue !== null) {
+              style += `${styleKey}: ${styleValue};`
+            }
+          }
+
+          node.setAttribute(key, style)
+        } else {
+          node.setAttribute(key, value)
+        }
       }
     }
   }

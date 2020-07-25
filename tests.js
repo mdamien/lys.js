@@ -43,4 +43,9 @@ it('should support rendering unescaped content', () => {
     '<p><h1>world</h1></p>')
 })
 
+it('should support style object', () => {
+  chai.assert.equal(L.render(L.p('world', { style: { hidden: null, color: "red" } })),
+    '<p style="color: red;">world</p>')
+})
+
 // TODO: continue by taking inspiration from lys python version tests
