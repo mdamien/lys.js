@@ -37,7 +37,7 @@ L.el = function (name, content, attrs) {
     content = flattenArray(content)
     content.forEach(node2 => {
       if (node2) {
-        node.appendChild(L.span(node2).firstChild)
+        node.appendChild(L.div(node2).firstChild)
       }    
     })
   } else if (content instanceof HTMLElement) {
@@ -52,9 +52,7 @@ L.el = function (name, content, attrs) {
   if (attrs) {
     for (var key in attrs) {
       var value = attrs[key]
-      if (key == 'class_') {
-        key = 'class'
-      }
+
       if (value !== null) {
         if (key === "style" && isObject(value)) {
           var style = ""
@@ -66,10 +64,10 @@ L.el = function (name, content, attrs) {
             }
           }
 
-          node.setAttribute(key, style)
-        } else {
-          node.setAttribute(key, value)
+          value = style
         }
+
+        node.setAttribute(key, value)
       }
     }
   }
@@ -92,5 +90,5 @@ L.raw = function(html) {
 }
 
 L.render = function (node) {
-  return L.span(node).innerHTML
+  return L.div(node).innerHTML
 }
