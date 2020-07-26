@@ -31,6 +31,12 @@ class RawHTML {
 }
 
 L.el = function (name, content, attrs) {
+  if (isObject(content)) {
+    var attrs_tmp = content
+    content = attrs
+    attrs = attrs_tmp
+  }
+
   var node = document.createElement(name)
 
   if (content instanceof Array) {
@@ -78,9 +84,6 @@ L.el = function (name, content, attrs) {
 var html_elements = "a,abbr,address,area,article,aside,audio,b,base,bdi,bdo,blockquote,body,br,button,canvas,caption,cite,code,col,colgroup,data,datalist,dd,del,details,dfn,dialog,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,i,iframe,img,input,ins,kbd,label,legend,li,link,main,map,mark,menu,meta,meter,nav,noscript,object,ol,optgroup,option,output,p,param,picture,pre,progress,q,rp,rt,ruby,s,samp,script,section,select,slot,small,source,span,strong,style,sub,summary,sup,table,tbody,td,template,textarea,tfoot,th,thead,time,title,tr,track,u,ul,var,video,wbr"
 html_elements.split(',').forEach(el => {
   L[el] = function (content, attrs) {
-    if (isObject(content)) {
-      return L.el(el, attrs, content)
-    }
     return L.el(el, content, attrs)
   }
 })

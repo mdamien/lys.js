@@ -34,6 +34,8 @@ it('should render attributes', () => {
 it('should support attributes first', () => {
   chai.assert.equal(L.render(L.h1({class:'hello'}, 'world')),
     '<h1 class="hello">world</h1>')
+  chai.assert.equal(L.render(L.el("test", {class:'hello'}, 'world')),
+    '<test class="hello">world</test>')
 })
 
 it('should support rendering unescaped content', () => {
