@@ -1,8 +1,12 @@
 L = {};
 
 var isObject = function (a) {
-    return (!!a) && (a.constructor === Object);
-};
+    return (!!a) && (a.constructor === Object)
+}
+
+var isFunction = function(functionToCheck) {
+ return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]'
+}
 
 var flattenArray = function (array) {
   var is_flat = false
@@ -73,7 +77,11 @@ L.el = function (name, content, attrs) {
           value = style
         }
 
-        node.setAttribute(key, value)
+        if (key.startsWith("on") && isFunction(value)){
+          node.addEventListener(key.slice(2).toLowerCase(), value);
+        } else {
+          node.setAttribute(key, value)
+        }
       }
     }
   }
